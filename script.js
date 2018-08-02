@@ -1,23 +1,22 @@
 class Stopwatch extends React.Component {
 
-    static defaultProps = {
-        running: false,
-        display: display,
-        times: times
-      }
-      static propTypes = {
-        running: React.PropTypes.number.isRequired,
-        display: React.PropTypes.object.isRequired,
-        times: React.PropTypes.number.isRequired
-      }
+    // static defaultProps = {
+    //     running: false,
+    //     display: display,
+    //     times: times
+    //   }
+    //   static propTypes = {
+    //     running: React.PropTypes.number.isRequired,
+    //     display: React.PropTypes.object.isRequired,
+    //     times: React.PropTypes.number.isRequired
+    //   }
 
     constructor(props) {
         super(props);
         this.state = {
             running: false,
             display: display,
-            reset(),
-            print(times)
+            reset()
         }
     }
 
@@ -27,10 +26,6 @@ class Stopwatch extends React.Component {
             seconds: 0,
             miliseconds: 0
         };
-    }
-
-    print() {
-        this.display.innerText = this.format(this.times);
     }
 
     format(times) {
@@ -85,6 +80,11 @@ class Stopwatch extends React.Component {
     clean() {
         var listElement = $('.list-element');
         listElement.remove();
+    }
+
+    render: function(times){
+        return
+        this.display.innerText = this.format(this.props.times);
     }
 }
 
