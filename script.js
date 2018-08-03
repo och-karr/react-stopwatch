@@ -1,31 +1,25 @@
 class Stopwatch extends React.Component {
 
-    // static defaultProps = {
-    //     running: false,
-    //     display: display,
-    //     times: times
-    //   }
-    //   static propTypes = {
-    //     running: React.PropTypes.number.isRequired,
-    //     display: React.PropTypes.object.isRequired,
-    //     times: React.PropTypes.number.isRequired
-    //   }
-
     constructor(props) {
         super(props);
         this.state = {
             running: false,
-            display: display,
-            reset()
+            times: {
+                minutes: 0,
+                seconds: 0,
+                miliseconds: 0
+            }
         }
     }
 
     reset() {
-        this.times = {
-            minutes: 0,
-            seconds: 0,
-            miliseconds: 0
-        };
+        this.setState({
+            times: {
+                minutes: 0,
+                seconds: 0,
+                miliseconds: 0
+            }
+        })
     }
 
     format(times) {
@@ -70,8 +64,7 @@ class Stopwatch extends React.Component {
 
     add() {
         if (this.running === false){
-            var innerDisplay = this.display.innerText;
-            // console.log(innerDisplay); 
+            var innerDisplay = this.display.innerText; 
             var results = $('.results');   
             $('<li>').addClass('list-element').text(innerDisplay).appendTo(results);
         } 
@@ -82,34 +75,48 @@ class Stopwatch extends React.Component {
         listElement.remove();
     }
 
-    render: function(times){
-        return
-        this.display.innerText = this.format(this.props.times);
+    render() {
+        return (
+            <div>
+                <nav className={'controls'}>
+                    <a href={'#'} className={'button'} id={'start'}>Start</a>
+                    <a href={'#'} className={'button'} id={'stop'}>Stop</a>
+                    <a href={'#'} className={'button'} id={'zero'}>Zero</a>
+                    <a href={'#'} className={'button'} id={'add'}>Add</a>
+                    <a href={'#'} className={'button'} id={'clean'}>Clean</a>
+                </nav>
+                <div className={'stopwatch'}></div>
+                <ul className={'results'}></ul>
+            </div>
+        );
+        
+        // React.createElement('h1', {}, 'It works!');
+        // this.display.innerText = this.format(this.props.times);
     }
 }
 
 var stopwatch = React.createElement(Stopwatch);
-ReactDOM.render(stopwatch, document.getElementById('.stopwatch'));
+ReactDOM.render(stopwatch, document.getElementsByClassName('container')[0]);
 
-let startButton = document.getElementById('start');
-startButton.addEventListener('click', () => stopwatch.start());
+// let startButton = document.getElementById('start');
+// startButton.addEventListener('click', () => stopwatch.start());
 
-let stopButton = document.getElementById('stop');
-stopButton.addEventListener('click', () => stopwatch.stop());
+// let stopButton = document.getElementById('stop');
+// stopButton.addEventListener('click', () => stopwatch.stop());
 
-let zeroButton = document.getElementById('zero');
-zeroButton.addEventListener('click', () => stopwatch.zero());
+// let zeroButton = document.getElementById('zero');
+// zeroButton.addEventListener('click', () => stopwatch.zero());
 
-let addButton = document.getElementById('add');
-addButton.addEventListener('click', () => stopwatch.add());
+// let addButton = document.getElementById('add');
+// addButton.addEventListener('click', () => stopwatch.add());
 
-let cleanButton = document.getElementById('clean');
-cleanButton.addEventListener('click', () => stopwatch.clean());
+// let cleanButton = document.getElementById('clean');
+// cleanButton.addEventListener('click', () => stopwatch.clean());
 
-function pad0(value) {
-    let result = value.toString();
-    if (result.length < 2) {
-        result = '0' + result;
-    }
-    return result;
-}
+// function pad0(value) {
+//     let result = value.toString();
+//     if (result.length < 2) {
+//         result = '0' + result;
+//     }
+//     return result;
+// }
