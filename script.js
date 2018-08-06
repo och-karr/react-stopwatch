@@ -22,8 +22,8 @@ class Stopwatch extends React.Component {
         })
     }
 
-    format(times) {
-        return `${pad0(times.minutes)}:${pad0(times.seconds)}:${pad0(Math.floor(times.miliseconds))}`;
+    format() {
+        return `${pad0(this.times.minutes)}:${pad0(this.times.seconds)}:${pad0(Math.floor(this.times.miliseconds))}`;
     }
 
     start() {
@@ -36,7 +36,6 @@ class Stopwatch extends React.Component {
     step() {
         if (!this.running) return;
         this.calculate();
-        this.print();
     }
 
     calculate() {
@@ -59,13 +58,11 @@ class Stopwatch extends React.Component {
     zero() {
         this.running = false;
         this.reset();
-        this.print();
     }
 
     add() {
         if (this.running === false){
-            var innerDisplay = this.display.innerText; 
-            var results = $('.results');   
+            var innerDisplay = this.display.innerText;   
             $('<li>').addClass('list-element').text(innerDisplay).appendTo(results);
         } 
     }
@@ -79,44 +76,36 @@ class Stopwatch extends React.Component {
         return (
             <div>
                 <nav className={'controls'}>
-                    <a href={'#'} className={'button'} id={'start'}>Start</a>
-                    <a href={'#'} className={'button'} id={'stop'}>Stop</a>
-                    <a href={'#'} className={'button'} id={'zero'}>Zero</a>
-                    <a href={'#'} className={'button'} id={'add'}>Add</a>
-                    <a href={'#'} className={'button'} id={'clean'}>Clean</a>
+                    <a href={'#'} className={'button'} id={'start'} onClick={this.start}>
+                        Start
+                    </a>
+                    <a href={'#'} className={'button'} id={'stop'} onClick={this.stop}>
+                        Stop
+                    </a>
+                    <a href={'#'} className={'button'} id={'zero'} onClick={this.zero}>
+                        Zero
+                    </a>
+                    <a href={'#'} className={'button'} id={'add'} onClick={this.add}>
+                        Add
+                    </a>
+                    <a href={'#'} className={'button'} id={'clean'} onClick={this.clean}>
+                        Clean
+                    </a>
                 </nav>
                 <div className={'stopwatch'}></div>
                 <ul className={'results'}></ul>
             </div>
         );
-        
-        // React.createElement('h1', {}, 'It works!');
-        // this.display.innerText = this.format(this.props.times);
     }
 }
 
 var stopwatch = React.createElement(Stopwatch);
 ReactDOM.render(stopwatch, document.getElementsByClassName('container')[0]);
 
-// let startButton = document.getElementById('start');
-// startButton.addEventListener('click', () => stopwatch.start());
-
-// let stopButton = document.getElementById('stop');
-// stopButton.addEventListener('click', () => stopwatch.stop());
-
-// let zeroButton = document.getElementById('zero');
-// zeroButton.addEventListener('click', () => stopwatch.zero());
-
-// let addButton = document.getElementById('add');
-// addButton.addEventListener('click', () => stopwatch.add());
-
-// let cleanButton = document.getElementById('clean');
-// cleanButton.addEventListener('click', () => stopwatch.clean());
-
-// function pad0(value) {
-//     let result = value.toString();
-//     if (result.length < 2) {
-//         result = '0' + result;
-//     }
-//     return result;
-// }
+function pad0(value) {
+    let result = value.toString();
+    if (result.length < 2) {
+        result = '0' + result;
+    }
+    return result;
+}
