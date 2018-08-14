@@ -23,8 +23,8 @@ class Stopwatch extends React.Component {
         })
     }
 
-    format() {
-        return `${pad0(this.state.times.minutes)}:${pad0(this.state.times.seconds)}:${pad0(Math.floor(this.state.times.miliseconds))}`;
+    format(times) {
+        return `${pad0(times.minutes)}:${pad0(times.seconds)}:${pad0(Math.floor(times.miliseconds))}`;
     }
 
     start() {
@@ -32,7 +32,7 @@ class Stopwatch extends React.Component {
             this.setState({
                 running: true
             }),
-            this.watch = setInterval(() => this.step(), 10); //tutaj coś z bind
+            this.watch = setInterval(this.step.bind(this), 10);
         }
     }
 
@@ -52,13 +52,7 @@ class Stopwatch extends React.Component {
             times.minutes += 1;
             times.seconds = 0;
         }
-        this.setState({
-            times: {
-                minutes: times.minutes,
-                seconds: times.seconds,
-                miliseconds: times.miliseconds
-            }
-        })
+        this.setState({times})
     }
 
     stop() {
@@ -77,11 +71,16 @@ class Stopwatch extends React.Component {
 
     add() {
         if (this.state.running === false){
-            var timeValue = this.state.times.innerText;
-            newResults = results.push(timeValue);
-            this.setState({
-                results: newResults
-            }) 
+            // var timeValue = this.state.times.innerText;
+            // newResults = results.push(timeValue);
+            // this.setState({
+            //     results: newResults
+            
+            //weźmie (ODCZYTA) to co ma w results w state i doda 
+            //nasz obecny czas (znowu musi go ODCZYTAĆ ze stanu)
+            var results = this.state.results;
+            results.push(this.state.times);
+            this.setState({results}) 
         } 
     }
 
@@ -111,14 +110,21 @@ class Stopwatch extends React.Component {
                         Clean
                     </a>
                 </nav>
-                <div className={'stopwatch'}></div>
-                <ul className={'results'} onClick={this.state.results.map(resultsValue){
-                    this.format(this.state.times)
-                }}></ul>
+                <div className={'stopwatch'}>
+                    
+                </div>
+                <ul className={'results'}></ul>
             </div>
         );
     }
 }
+
+// format(this.state.times)
+
+// this.state.results.map(resultsValue){
+//     this.format(this.state.times)
+// }
+
 
 var stopwatch = React.createElement(Stopwatch);
 ReactDOM.render(stopwatch, document.getElementsByClassName('container')[0]);
