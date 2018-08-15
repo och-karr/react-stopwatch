@@ -110,21 +110,18 @@ class Stopwatch extends React.Component {
                         Clean
                     </a>
                 </nav>
-                <div className={'stopwatch'}>
-                    
+                <div className={'stopwatch'}>{this.format(this.state.times)}
                 </div>
-                <ul className={'results'}></ul>
+                <ul className={'results'}>
+                    {/* {this.state.results.map(() =>
+                       
+
+                    )} */}
+                </ul>
             </div>
         );
     }
 }
-
-// format(this.state.times)
-
-// this.state.results.map(resultsValue){
-//     this.format(this.state.times)
-// }
-
 
 var stopwatch = React.createElement(Stopwatch);
 ReactDOM.render(stopwatch, document.getElementsByClassName('container')[0]);
