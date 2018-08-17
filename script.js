@@ -79,8 +79,10 @@ class Stopwatch extends React.Component {
             //weźmie (ODCZYTA) to co ma w results w state i doda 
             //nasz obecny czas (znowu musi go ODCZYTAĆ ze stanu)
             var results = this.state.results;
-            results.push(this.state.times);
-            this.setState({results}) 
+            var newTime = Object.assign({},this.state.times);//tworzymy nowy obiekt przez object assign -
+            //- łączy dwa obiekty w nawiasie i tworzy nowy obiekt (tu: taki sam jak this.state.times)
+            results.push(newTime);
+            this.setState({results})
         } 
     }
 
@@ -113,10 +115,11 @@ class Stopwatch extends React.Component {
                 <div className={'stopwatch'}>{this.format(this.state.times)}
                 </div>
                 <ul className={'results'}>
-                    {/* {this.state.results.map(() =>
-                       
-
-                    )} */}
+                    {this.state.results.map((timeElement, index) => { //timeElement - jeden obiekt z tablicy results.
+                        return (
+                            <li key ={index}>{this.format(timeElement)}</li>
+                        )
+                    })}
                 </ul>
             </div>
         );

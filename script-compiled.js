@@ -100,7 +100,8 @@ var Stopwatch = function (_React$Component) {
                 //weźmie (ODCZYTA) to co ma w results w state i doda 
                 //nasz obecny czas (znowu musi go ODCZYTAĆ ze stanu)
                 var results = this.state.results;
-                results.push(this.state.times);
+                var newTime = Object.assign({}, this.state.times); //łączy dwa obiekty w nawiasie i tworzy nowy obiekt
+                results.push(newTime);
                 this.setState({ results: results });
             }
         }
@@ -163,7 +164,17 @@ var Stopwatch = function (_React$Component) {
                     { className: 'stopwatch' },
                     this.format(this.state.times)
                 ),
-                React.createElement('ul', { className: 'results' })
+                React.createElement(
+                    'ul',
+                    { className: 'results' },
+                    this.state.results.map(function (timeElement, index) {
+                        return React.createElement(
+                            'li',
+                            { key: index },
+                            _this2.format(timeElement)
+                        );
+                    })
+                )
             );
         }
     }]);
